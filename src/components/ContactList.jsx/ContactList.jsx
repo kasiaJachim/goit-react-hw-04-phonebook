@@ -1,29 +1,27 @@
 import PropTypes from 'prop-types';
-import { Component } from 'react';
 import css from './contactList.module.css';
 
-export class ContactList extends Component {
-  render() {
-    return (
-      <div>
-        <ul className={css.list}>
-          {this.props.contacts.map(({ name, number }, index) => (
-            <li className={css.item} key={index}>
-              <span>{name}</span>
-              <span>{number}</span>
-              <button
-                className={css.deleteBtn}
-                onClick={() => this.props.deleteContact(index)}
-              >
-                Delete
-              </button>
-            </li>
-          ))}
-        </ul>
-      </div>
-    );
-  }
-}
+const ContactList = ({ deleteContact, contacts }) => {
+  return (
+    <div>
+      <ul className={css.list}>
+        {contacts.map(contact => (
+          <li className={css.item} key={contact.id}>
+            <span>{contact.name}</span>
+            <span>{contact.number}</span>
+            <button
+              className={css.deleteBtn}
+              onClick={() => deleteContact(contact.id)}
+            >
+              Delete
+            </button>
+          </li>
+        ))}
+      </ul>
+    </div>
+  );
+};
+export default ContactList;
 
 ContactList.propTypes = {
   contacts: PropTypes.arrayOf(
